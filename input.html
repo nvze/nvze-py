@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Data</title>
+    <style>
+        body {
+            margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif;
+            /* Gradasi Pink -> Biru Request -> Pink */
+            background: linear-gradient(90deg, #ff7eb3, #2b52ff, #ff7eb3);
+            background-size: 300% 300%; animation: gradientBG 8s ease infinite;
+            min-height: 100vh; display: flex; justify-content: center; align-items: center; color: white;
+        }
+        @keyframes gradientBG { 
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .glass-card {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(20px);
+            border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 30px; 
+            width: 90%; max-width: 480px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            position: relative; box-sizing: border-box; margin: 20px;
+        }
+
+        .header-content { 
+            display: flex; align-items: center; margin-bottom: 25px; 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 20px;
+        }
+        
+        .header-content img { 
+            width: 200px; height: 50px; object-fit: contain; margin-right: 20px; 
+        }
+        .header-content h3 { margin: 0; font-weight: 400; letter-spacing: 1px; font-size: 1.4em; color: #5ce1e6; }
+
+        @media (max-width: 480px) {
+            .header-content { flex-direction: column; text-align: center; }
+            .header-content img { margin: 0 0 15px 0; } 
+            .logout { position: relative; top: 0; right: 0; display: block; text-align: center; margin-bottom: 20px;}
+        }
+
+        input, textarea {
+            width: 100%; padding: 15px; margin: 10px 0;
+            background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255,255,255,0.2); 
+            border-radius: 8px; color: white; box-sizing: border-box;
+            transition: 0.3s; font-size: 1rem;
+        }
+        input:focus, textarea:focus { border-color: #2b52ff; outline: none; background: rgba(255,255,255,0.15); }
+
+        .btn-submit {
+            width: 100%; padding: 15px; 
+            /* Tombol Biru Request */
+            background: linear-gradient(90deg, #2b52ff, #1a3cff);
+            border: none; border-radius: 50px; color: white; font-weight: bold; cursor: pointer; margin-top: 20px;
+            letter-spacing: 1px; transition: transform 0.2s; font-size: 1rem;
+        }
+        .btn-submit:hover { transform: translateY(-3px); }
+
+        .logout { 
+            position: absolute; top: 25px; right: 25px; color: #ff7eb3; text-decoration: none; 
+            font-size: 0.8em; font-weight: bold; padding: 5px 15px; border: 1px solid #ff7eb3; border-radius: 20px;
+            transition: 0.3s;
+        }
+        .logout:hover { background: #ff7eb3; color: white; }
+    </style>
+</head>
+<body>
+    <div class="glass-card">
+        <a href="/logout" class="logout">LOGOUT</a>
+        
+        <div class="header-content">
+            <img src="{{ url_for('logo_image') }}" alt="Logo">
+            <h3>INPUT FORM</h3>
+        </div>
+        
+        <form method="POST">
+            <label style="font-size:0.8em; color:#aaa; margin-left: 5px;">Waktu (Auto WIB)</label>
+            <input type="text" value="{{ wib }}" disabled style="cursor: not-allowed; background: rgba(0,0,0,0.3); color:#aaa;">
+            
+            <input type="number" name="nomor" placeholder="Nomor Input" required>
+            <input type="text" name="nama" placeholder="Nama Lengkap" required>
+            <input type="text" name="website" placeholder="Alamat Website" required>
+            <textarea name="keterangan" rows="3" placeholder="Keterangan Detail..." required></textarea>
+            
+            <button type="submit" class="btn-submit">SIMPAN DATA</button>
+        </form>
+        
+        <div style="text-align: center; margin-top: 25px;">
+            <a href="/list" style="color: #5ce1e6; text-decoration: none; font-size: 1rem; font-weight: bold;">Lihat Hasil Input &rarr;</a>
+        </div>
+    </div>
+</body>
+</html>
