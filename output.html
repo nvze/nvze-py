@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hasil Data</title>
+    <style>
+        body {
+            margin: 0; padding: 20px 10px;
+            font-family: 'Segoe UI', sans-serif;
+            /* Gradasi Pink -> Biru Request -> Pink */
+            background: linear-gradient(90deg, #ff7eb3, #2b52ff, #ff7eb3);
+            background-size: 300% 300%; animation: gradientBG 8s ease infinite;
+            color: white; min-height: 100vh; box-sizing: border-box;
+        }
+        @keyframes gradientBG { 
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; width: 100%; }
+        
+        /* HEADER */
+        .header {
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(0,0,0,0.5); padding: 20px; border-radius: 15px;
+            margin-bottom: 30px; backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            flex-wrap: wrap; gap: 20px;
+        }
+        .header-left { display: flex; align-items: center; }
+        .header-left img { 
+            width: 200px; height: 50px; object-fit: contain; margin-right: 20px; 
+        }
+        .header-left h2 { margin: 0; font-weight: 400; letter-spacing: 2px; color: #5ce1e6; font-size: 1.5em; }
+
+        .btn-back { 
+            color: #5ce1e6; text-decoration: none; font-weight: bold; padding: 8px 15px; 
+            border: 1px solid #5ce1e6; border-radius: 20px; transition: 0.3s;
+        }
+        .btn-back:hover { background: #5ce1e6; color: black; }
+        
+        .logout { 
+            color: #ff7eb3; text-decoration: none; border: 1px solid #ff7eb3; 
+            padding: 8px 20px; border-radius: 30px; font-weight: bold; margin-left: 10px;
+        }
+        .logout:hover { background: #ff7eb3; color: white; }
+
+        /* TABLE STYLING */
+        .table-container {
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow-x: auto; /* Agar bisa scroll horizontal di HP */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+
+        th, td {
+            text-align: left;
+            /* Ukuran cell sedang */
+            padding: 15px; 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        th {
+            color: #5ce1e6;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9em;
+        }
+
+        td { font-size: 0.95em; color: #eee; }
+        
+        tr:last-child td { border-bottom: none; }
+        tr:hover { background: rgba(255,255,255,0.05); }
+
+        .link-btn {
+            background: linear-gradient(90deg, #2b52ff, #1a3cff);
+            color: white; padding: 8px 15px; text-decoration: none; border-radius: 20px;
+            font-size: 0.85em; font-weight: bold; display: inline-block; white-space: nowrap;
+        }
+        .link-btn:hover { transform: scale(1.05); }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .header { justify-content: center; text-align: center; }
+            .header-left { flex-direction: column; }
+            .header-left img { margin: 0 0 15px 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-left">
+                <img src="{{ url_for('logo_image') }}" alt="Logo">
+                <h2>DATA LIST</h2>
+            </div>
+            <div>
+                <a href="/input" class="btn-back">&larr; Input</a>
+                <a href="/logout" class="logout">Logout</a>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 20%;">Waktu (WIB)</th>
+                        <th style="width: 10%;">No</th>
+                        <th style="width: 20%;">Nama</th>
+                        <th style="width: 35%;">Keterangan</th>
+                        <th style="width: 15%;">Website</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in data %}
+                    <tr>
+                        <td>{{ item.waktu }}</td>
+                        <td>{{ item.nomor }}</td>
+                        <td>{{ item.nama }}</td>
+                        <td>{{ item.ket }}</td>
+                        <td>
+                            <a href="{{ item.website }}" target="_blank" class="link-btn">Buka Link</a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="5" style="text-align: center; padding: 40px; color: #888;">
+                            Belum ada data yang diinput.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
