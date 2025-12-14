@@ -44,7 +44,7 @@ def login():
         else:
             error = "Username atau Password salah!"
             
-    return render_template('login.html', error=error)
+    return render_template('index.html', error=error)
 
 @app.route('/input', methods=['GET', 'POST'])
 def input_data():
