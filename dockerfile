@@ -11,4 +11,5 @@ COPY . /app
 RUN pip install -r requirements.txt
 
 # 5. Tentukan perintah untuk menjalankan aplikasi
+
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
